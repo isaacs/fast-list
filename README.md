@@ -25,41 +25,41 @@ This is faster for this use case.  How much faster?  About 50%.
 
     new FastList()
     Raw:
-     > 24390.243902439026
-     > 25072.324011571844
-     > 24505.183788878418
-     > 24551.463644948064
-     > 24738.344433872502
-    Average (mean) 24651.511956341972
+     > 22556.39097744361
+     > 23054.755043227666
+     > 22770.398481973436
+     > 23414.634146341465
+     > 23099.133782483157
+    Average (mean) 22979.062486293868
 
     []
     Raw:
-     > 12248.468941382327
-     > 12227.07423580786
-     > 12237.762237762237
-     > 12227.07423580786
      > 12195.121951219513
-    Average (mean) 12227.100320395959
+     > 12184.508268059182
+     > 12173.91304347826
+     > 12216.404886561955
+     > 12184.508268059182
+    Average (mean) 12190.891283475617
 
     new Array()
     Raw:
-     > 12142.237640936686
+     > 12131.715771230503
+     > 12184.508268059182
      > 12216.404886561955
-     > 12248.468941382327
-     > 12205.754141238012
-     > 12079.378774805868
-    Average (mean) 12178.44887698497
+     > 12195.121951219513
+     > 11940.298507462687
+    Average (mean) 12133.609876906768
 
     Winner: new FastList()
     Compared with next highest ([]), it's:
-    50.4% faster
-    2.02 times as fast
-    0.3 order(s) of magnitude faster
+    46.95% faster
+    1.88 times as fast
+    0.28 order(s) of magnitude faster
 
     Compared with the slowest (new Array()), it's:
-    50.6% faster
-    2.02 times as fast
-    0.31 order(s) of magnitude faster
+    47.2% faster
+    1.89 times as fast
+    0.28 order(s) of magnitude faster
 
 This lacks a lot of features that arrays have:
 
@@ -92,8 +92,14 @@ console.log(list.shift()) // foo
 
 ### Methods
 
-* push: Just like Array.push, but only can take a single entry
-* pop: Just like Array.pop
-* shift: Just like Array.shift
-* unshift: Just like Array.unshift, but only can take a single entry
-* drop: Drop all entries
+* `push`: Just like Array.push, but only can take a single entry
+* `pop`: Just like Array.pop
+* `shift`: Just like Array.shift
+* `unshift`: Just like Array.unshift, but only can take a single entry
+* `drop`: Drop all entries
+* `item(n)`: Retrieve the nth item in the list.  This involves a walk
+  every time.  It's very slow.  If you find yourself using this,
+  consider using a normal Array instead.
+* `slice(start, end)`: Retrieve an array of the items at this position.
+  This involves a walk every time.  It's very slow.  If you find
+  yourself using this, consider using a normal Array instead.
