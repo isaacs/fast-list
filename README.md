@@ -103,3 +103,9 @@ console.log(list.shift()) // foo
 * `slice(start, end)`: Retrieve an array of the items at this position.
   This involves a walk every time.  It's very slow.  If you find
   yourself using this, consider using a normal Array instead.
+
+### Members
+
+* `length`: The number of things in the list.  Note that, unlike
+  Array.length, this is not a getter/setter, but rather a counter that
+  is internally managed.  Setting it can only cause harm.
