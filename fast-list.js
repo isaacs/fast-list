@@ -30,7 +30,7 @@ FastList.prototype =
     }
     this.length --
     if (this.length === 1) this._head = this._tail
-    else if (this.length === 0) this._head = null
+    else if (this.length === 0) this._head = this._tail = null
     return t.data
   }
 , unshift: function (data) {
@@ -39,7 +39,7 @@ FastList.prototype =
     this.length ++
   }
 , shift: function () {
-    if (this._length === 0) return undefined
+    if (this.length === 0) return undefined
     var h = this._head
     this._head = h.next
     if (h.next) {
@@ -47,7 +47,7 @@ FastList.prototype =
     }
     this.length --
     if (this.length === 1) this._tail = this._head
-    else if (this.length === 0) this._tail = null
+    else if (this.length === 0) this._head = this._tail = null
     return h.data
   }
 , item: function (n) {
