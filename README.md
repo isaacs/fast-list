@@ -92,8 +92,8 @@ console.log(list.shift()) // foo
 
 ### Methods
 
-* push: Just like Array.push
+* push: Just like Array.push, but only can take a single entry
 * pop: Just like Array.pop
 * shift: Just like Array.shift
-* unshift: Just like Array.unshift
+* unshift: Just like Array.unshift, but only can take a single entry
 * drop: Drop all entries
