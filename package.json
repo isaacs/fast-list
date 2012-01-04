@@ -14,7 +14,7 @@
     "tap": "~0.1.0"
   },
   "scripts": {
-    "test": "node test.js",
+    "test": "tap test.js",
     "bench": "node bench.js"
   }
 }
