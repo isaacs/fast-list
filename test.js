@@ -79,5 +79,34 @@ test(function (t) {
     ,"mut"
     ,"nop"], "slice(-4)")
 
+  // verify that map, reduce, and filter all match their
+  // array counterparts.  This implies forEach coverage as well,
+  // since map and filter rely on it.
+  function reduce (l, r) {
+    l[r] = true
+    return l
+  }
+  t.deepEqual( list.reduce(reduce, {})
+             , list.slice().reduce(reduce, {})
+             , "reduce")
+
+  // filter out the first three items
+  function filter (v) {
+    return v.charAt(0) !== "b"
+  }
+  t.deepEqual( list.filter(filter).slice()
+             , list.slice().filter(filter)
+             , "filter")
+
+  // double all the items
+  function map (v) {
+    return v + v
+  }
+  t.deepEqual( list.map(map).slice()
+             , list.slice().map(map)
+             , "map")
+
   t.end()
 })
+
+
