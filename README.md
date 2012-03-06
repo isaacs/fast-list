@@ -1,65 +1,16 @@
 # The Problem
 
 You've got some thing where you need to push a bunch of stuff into a
-queue and then shift it out.  Or, maybe it's a stack, and you're just
-pushing and popping it.
+queue and then shift it out.  Or, maybe, you need to pop it out
+stack-like, but it's not clear at the outset which way it's going to go.
 
-Arrays work for this, but are a bit costly performance-wise.
+Arrays work for this, but are a bit costly performance-wise in the mixed
+case.  In the pure-stack case (or, as of recent V8 versions, the pure-queue
+case as well), Arrays are best.
 
-# The Solution
-
-A linked-list implementation that takes advantage of what v8 is good at:
-creating objects with a known shape.
-
-This is faster for this use case.  How much faster?  About 50%.
-
-    $ node bench.js
-    benchmarking /Users/isaacs/dev-src/js/fast-list/bench.js
-    Please be patient.
-    { node: '0.6.2-pre',
-      v8: '3.6.6.8',
-      ares: '1.7.5-DEV',
-      uv: '0.1',
-      openssl: '0.9.8l' }
-    Scores: (bigger is better)
-
-    new FastList()
-    Raw:
-     > 22556.39097744361
-     > 23054.755043227666
-     > 22770.398481973436
-     > 23414.634146341465
-     > 23099.133782483157
-    Average (mean) 22979.062486293868
-
-    []
-    Raw:
-     > 12195.121951219513
-     > 12184.508268059182
-     > 12173.91304347826
-     > 12216.404886561955
-     > 12184.508268059182
-    Average (mean) 12190.891283475617
-
-    new Array()
-    Raw:
-     > 12131.715771230503
-     > 12184.508268059182
-     > 12216.404886561955
-     > 12195.121951219513
-     > 11940.298507462687
-    Average (mean) 12133.609876906768
-
-    Winner: new FastList()
-    Compared with next highest ([]), it's:
-    46.95% faster
-    1.88 times as fast
-    0.28 order(s) of magnitude faster
-
-    Compared with the slowest (new Array()), it's:
-    47.2% faster
-    1.89 times as fast
-    0.28 order(s) of magnitude faster
+In cases where it's mixed, a linked list implementation can be
+significantly faster.  See the benchmark scripts in `bench/*.js` to
+measure the differences.
 
 This lacks a lot of features that arrays have:
 
@@ -69,6 +20,12 @@ This lacks a lot of features that arrays have:
 
 If any of this matters for your use case, you're probably better off
 using an Array object.
+
+If you *know* that you'll be using it as a stack or a queue exclusively,
+then you're better off using an Array object.
+
+If you know the eventual size at the offset, then you're definitely
+better off using an Array.
 
 ## Installing
 
@@ -93,9 +50,11 @@ console.log(list.shift()) // foo
 ### Methods
 
 * `push`: Just like Array.push, but only can take a single entry
-* `pop`: Just like Array.pop
-* `shift`: Just like Array.shift
-* `unshift`: Just like Array.unshift, but only can take a single entry
+* `pop`: Just like Array.pop.  Note: if you're only using push and pop,
+  then you have a stack, and Arrays are better for that.
+* `shift`: Just like Array.shift.  Note: if you're only using push and
+  shift, then you have a queue, and Arrays are better for that.
+* `unshift`: Just like Array.unshift, but only can take a single entry.
 * `drop`: Drop all entries
 * `item(n)`: Retrieve the nth item in the list.  This involves a walk
   every time.  It's very slow.  If you find yourself using this,
