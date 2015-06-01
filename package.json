@@ -11,11 +11,11 @@
   "dependencies": {},
   "devDependencies": {
     "bench": "~0.3.2",
-    "tap": "~0.1.0"
+    "tap": "^1.2.0"
   },
   "scripts": {
     "test": "tap test.js",
     "bench": "node bench.js"
   },
-  "license":"BSD"
+  "license": "BSD"
 }
