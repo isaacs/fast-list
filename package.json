@@ -17,5 +17,5 @@
     "test": "tap test.js",
     "bench": "node bench.js"
   },
-  "license": "BSD"
+  "license": "ISC"
 }
